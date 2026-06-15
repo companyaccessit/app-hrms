@@ -1,0 +1,29 @@
+{
+ "app": "hrms",
+ "creation": "2026-06-15 13:47:54.005830",
+ "docstatus": 0,
+ "doctype": "Workspace Sidebar",
+ "header_icon": "volume-2",
+ "idx": 0,
+ "items": [
+  {
+   "child": 0,
+   "collapsible": 1,
+   "icon": "volume-2",
+   "indent": 0,
+   "keep_closed": 0,
+   "label": "Announcement",
+   "link_to": "Announcement",
+   "link_type": "DocType",
+   "open_in_new_tab": 1,
+   "show_arrow": 0,
+   "type": "Link"
+  }
+ ],
+ "modified": "2026-06-15 13:47:54.005830",
+ "modified_by": "Administrator",
+ "name": "Announcement",
+ "owner": "Administrator",
+ "standard": 1,
+ "title": "Announcement"
+}

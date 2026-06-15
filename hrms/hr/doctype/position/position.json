@@ -1,6 +1,7 @@
 {
  "actions": [],
  "allow_bulk_edit": 1,
+ "allow_import": 1,
  "allow_rename": 1,
  "autoname": "field:name1",
  "creation": "2026-05-25 15:12:48.832656",
@@ -29,7 +30,7 @@
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2026-05-28 09:36:58.188796",
+ "modified": "2026-05-28 18:12:01.730506",
  "modified_by": "Administrator",
  "module": "HR",
  "name": "Position",
