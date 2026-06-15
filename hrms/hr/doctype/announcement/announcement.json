@@ -9,30 +9,42 @@
  "field_order": [
   "company",
   "column_break_xatc",
-  "request_announcement",
+  "announcement_by",
+  "approvement_section",
+  "is_approved",
+  "approved_date",
   "announcement_period_section",
-  "start_date",
+  "posting_date",
   "column_break_unzp",
+  "start_date",
+  "column_break_rwnr",
   "end_date",
   "announcement_section",
-  "objective",
+  "title",
+  "memo",
+  "reference",
   "content",
   "approved_by_section",
   "department_of_human_resource",
-  "department_of_sale_manager",
+  "procurement_purchasing",
+  "promotion_scheming",
+  "business_legal",
+  "food",
+  "cafe",
   "column_break_vmgp",
   "department_of_finance",
+  "department_of_sale_execution",
+  "transport_logistic",
+  "ai_technology",
+  "beverage",
+  "media_digital_marketing",
   "section_break_xzdf",
   "general_manager",
   "column_break_zmxk",
-  "managing_director"
+  "managing_director",
+  "amended_from"
  ],
  "fields": [
-  {
-   "fieldname": "request_announcement",
-   "fieldtype": "Data",
-   "label": "Request Announcement"
-  },
   {
    "fieldname": "announcement_period_section",
    "fieldtype": "Section Break",
@@ -56,11 +68,6 @@
    "fieldname": "announcement_section",
    "fieldtype": "Section Break",
    "label": "Announcement"
-  },
-  {
-   "fieldname": "objective",
-   "fieldtype": "Data",
-   "label": "Objective"
   },
   {
    "fieldname": "content",
@@ -87,11 +94,6 @@
    "fieldtype": "Column Break"
   },
   {
-   "fieldname": "department_of_sale_manager",
-   "fieldtype": "Signature",
-   "label": "Department of Sale Manager"
-  },
-  {
    "fieldname": "managing_director",
    "fieldtype": "Signature",
    "label": "Managing Director"
@@ -99,7 +101,7 @@
   {
    "fieldname": "department_of_finance",
    "fieldtype": "Signature",
-   "label": "Department of Finance"
+   "label": "Department of Accounting & Finance"
   },
   {
    "fieldname": "company",
@@ -118,12 +120,123 @@
   {
    "fieldname": "column_break_zmxk",
    "fieldtype": "Column Break"
+  },
+  {
+   "default": "Today",
+   "fieldname": "posting_date",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Posting Date",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_rwnr",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "title",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Title",
+   "reqd": 1
+  },
+  {
+   "fieldname": "memo",
+   "fieldtype": "Data",
+   "label": "Memo"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Announcement",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "announcement_by",
+   "fieldtype": "Data",
+   "label": "Announcement by"
+  },
+  {
+   "fieldname": "approvement_section",
+   "fieldtype": "Section Break",
+   "label": "Approvement"
+  },
+  {
+   "default": "0",
+   "fieldname": "is_approved",
+   "fieldtype": "Check",
+   "label": "Is Approved"
+  },
+  {
+   "fieldname": "approved_date",
+   "fieldtype": "Date",
+   "label": "Approved Date"
+  },
+  {
+   "fieldname": "reference",
+   "fieldtype": "Data",
+   "label": "Reference"
+  },
+  {
+   "fieldname": "procurement_purchasing",
+   "fieldtype": "Signature",
+   "label": "Department of Procurement & Purchasing"
+  },
+  {
+   "fieldname": "promotion_scheming",
+   "fieldtype": "Signature",
+   "label": "Department of Promotion & Scheming"
+  },
+  {
+   "fieldname": "business_legal",
+   "fieldtype": "Signature",
+   "label": "Department of Business & Legal"
+  },
+  {
+   "fieldname": "food",
+   "fieldtype": "Signature",
+   "label": "Department of Food"
+  },
+  {
+   "fieldname": "cafe",
+   "fieldtype": "Signature",
+   "label": "Department of Cafe"
+  },
+  {
+   "fieldname": "department_of_sale_execution",
+   "fieldtype": "Signature",
+   "label": "Department of Sale Execution"
+  },
+  {
+   "fieldname": "transport_logistic",
+   "fieldtype": "Signature",
+   "label": "Department of Transport & Logistic"
+  },
+  {
+   "fieldname": "ai_technology",
+   "fieldtype": "Signature",
+   "label": "Department of AI & Technology"
+  },
+  {
+   "fieldname": "beverage",
+   "fieldtype": "Signature",
+   "label": "Department of Beverage"
+  },
+  {
+   "fieldname": "media_digital_marketing",
+   "fieldtype": "Signature",
+   "label": "Department of Media & Digital Marketing"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
+ "is_submittable": 1,
  "links": [],
- "modified": "2026-06-15 13:39:43.086263",
+ "modified": "2026-06-15 15:01:10.338590",
  "modified_by": "Administrator",
  "module": "HR",
  "name": "Announcement",
@@ -148,5 +261,5 @@
  "sort_field": "creation",
  "sort_order": "DESC",
  "states": [],
- "title_field": "objective"
+ "title_field": "title"
 }
