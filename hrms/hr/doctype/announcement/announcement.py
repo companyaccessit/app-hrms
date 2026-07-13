@@ -1,7 +1,7 @@
 # Copyright (c) 2026, Frappe Technologies Pvt. Ltd. and contributors
 # For license information, please see license.txt
 
-# import frappe
+import frappe
 from frappe.model.document import Document
 
 
@@ -15,10 +15,12 @@ class Announcement(Document):
 		from frappe.types import DF
 
 		amended_from: DF.Link | None
-		announcement_by: DF.Data | None
+		announcement_by: DF.Link | None
 		approved_date: DF.Date | None
 		company: DF.Link | None
 		content: DF.TextEditor | None
+		department: DF.Link | None
+		employee_name: DF.Data | None
 		end_date: DF.Date | None
 		is_approved: DF.Check
 		memo: DF.Data | None
@@ -28,4 +30,10 @@ class Announcement(Document):
 		title: DF.Data
 	# end: auto-generated types
 
-	pass
+ 
+	def validate(self):
+		if self.is_approved and self.has_value_changed("general_manager"):
+			frappe.throw("General Manager signature cannot be changed after approval.")
+   
+		if self.is_approved and self.has_value_changed("managing_director"):frappe.throw("Managing Director signature cannot be changed after approval.")
+            

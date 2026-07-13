@@ -10,6 +10,8 @@
   "company",
   "column_break_xatc",
   "announcement_by",
+  "employee_name",
+  "department",
   "approvement_section",
   "is_approved",
   "approved_date",
@@ -85,6 +87,7 @@
    "label": "Department of Human Resource"
   },
   {
+   "allow_on_submit": 1,
    "fieldname": "general_manager",
    "fieldtype": "Signature",
    "label": "General Manager"
@@ -94,6 +97,7 @@
    "fieldtype": "Column Break"
   },
   {
+   "allow_on_submit": 1,
    "fieldname": "managing_director",
    "fieldtype": "Signature",
    "label": "Managing Director"
@@ -157,21 +161,25 @@
   },
   {
    "fieldname": "announcement_by",
-   "fieldtype": "Data",
-   "label": "Announcement by"
+   "fieldtype": "Link",
+   "label": "Announcement by",
+   "options": "Employee"
   },
   {
    "fieldname": "approvement_section",
    "fieldtype": "Section Break",
+   "hidden": 1,
    "label": "Approvement"
   },
   {
+   "allow_on_submit": 1,
    "default": "0",
    "fieldname": "is_approved",
    "fieldtype": "Check",
    "label": "Is Approved"
   },
   {
+   "allow_on_submit": 1,
    "fieldname": "approved_date",
    "fieldtype": "Date",
    "label": "Approved Date"
@@ -230,13 +238,27 @@
    "fieldname": "media_digital_marketing",
    "fieldtype": "Signature",
    "label": "Department of Media & Digital Marketing"
+  },
+  {
+   "fetch_from": "announcement_by.employee_name",
+   "fieldname": "employee_name",
+   "fieldtype": "Data",
+   "label": "Employee Name",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "announcement_by.department",
+   "fieldname": "department",
+   "fieldtype": "Link",
+   "label": "Department",
+   "options": "Department"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2026-06-15 15:01:10.338590",
+ "modified": "2026-06-24 13:06:02.834984",
  "modified_by": "Administrator",
  "module": "HR",
  "name": "Announcement",
