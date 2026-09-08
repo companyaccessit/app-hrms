@@ -13,6 +13,8 @@
 				</router-link>
 			</div>
 			<Button
+				size="lg"
+				:theme="nextAction.action === 'IN' ? 'green' : 'red'"
 				class="mt-4 mb-1 drop-shadow-sm py-5 text-base"
 				id="open-checkin-modal"
 				@click="handleEmployeeCheckin"

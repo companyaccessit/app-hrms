@@ -14,6 +14,7 @@ export const getTotalDays = (shift) => {
 	if (!shift.to_date) return null
 	const toDate = dayjs(shift.to_date)
 	const fromDate = dayjs(shift.from_date)
+	alert(from)
 	return toDate.diff(fromDate, "d") + 1
 }
 

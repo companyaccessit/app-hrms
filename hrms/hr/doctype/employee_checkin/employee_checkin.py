@@ -7,7 +7,7 @@ from datetime import date, datetime, timedelta
 import frappe
 from frappe import _
 from frappe.model.document import Document
-from frappe.utils import cint, get_datetime
+from frappe.utils import cint, get_datetime, getdate
 
 from hrms.hr.doctype.shift_assignment.shift_assignment import get_actual_start_end_datetime_of_shift
 from hrms.hr.utils import (
@@ -53,11 +53,35 @@ class EmployeeCheckin(Document):
 
 	def validate(self):
 		validate_active_employee(self.employee)
+		self.validate_checkin_same_day()
 		self.validate_duplicate_log()
 		self.validate_time_change()
 		self.fetch_shift()
 		self.set_geolocation()
 		self.validate_distance_from_shift_location()
+
+	def validate_checkin_same_day(self):
+		checkin_date = getdate(self.time)
+		existing = frappe.db.exists(
+			"Employee Checkin",
+			{
+				"employee": self.employee,
+				"log_type": self.log_type,
+				"name": ["!=", self.name],
+				"time": [
+					"between",
+					[
+						f"{checkin_date} 00:00:00",
+						f"{checkin_date} 23:59:59"
+					]
+				]
+			}
+		)
+
+		if existing:
+			frappe.throw(
+				f"Employee {self.employee} already has a {self.log_type} record for {checkin_date}."
+			)
 
 	def validate_duplicate_log(self):
 		doc = frappe.db.exists(
@@ -74,7 +98,7 @@ class EmployeeCheckin(Document):
 			frappe.throw(
 				_("This employee already has a log with the same timestamp.{0}").format("<Br>" + doc_link)
 			)
-
+	
 	def validate_time_change(self):
 		if self.attendance and self.has_value_changed("time"):
 			frappe.throw(

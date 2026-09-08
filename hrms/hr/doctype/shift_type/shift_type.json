@@ -1,5 +1,6 @@
 {
  "actions": [],
+ "allow_rename": 1,
  "autoname": "prompt",
  "creation": "2018-04-13 16:22:52.954783",
  "doctype": "DocType",
@@ -210,7 +211,7 @@
   }
  ],
  "links": [],
- "modified": "2025-12-16 16:32:49.169920",
+ "modified": "2026-09-04 16:32:41.005348",
  "modified_by": "Administrator",
  "module": "HR",
  "name": "Shift Type",

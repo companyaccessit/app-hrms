@@ -302,7 +302,7 @@ def update_data(data, filters):
 		update_late_entry(d, filters.consider_grace_period)
 		update_early_exit(d, filters.consider_grace_period)
 
-		d.working_hours = format_float_precision(d.working_hours)
+		d.working_hours = update_data(d.working_hours)
 		d.in_time, d.out_time = format_in_out_time(d.in_time, d.out_time, d.attendance_date)
 		d.shift_start, d.shift_end = convert_datetime_to_time_for_same_date(d.shift_start, d.shift_end)
 		d.shift_actual_start, d.shift_actual_end = convert_datetime_to_time_for_same_date(
@@ -311,9 +311,30 @@ def update_data(data, filters):
 	return data
 
 
-def format_float_precision(value):
+# def format_float_precision(value):
+# 	precision = cint(frappe.db.get_default("float_precision")) or 2
+# 	return flt(value, precision)
+
+#custom working hours to display total hours
+def format_working_hours(working_hours):
+	if not working_hours:
+		return working_hours
 	precision = cint(frappe.db.get_default("float_precision")) or 2
-	return flt(value, precision)
+	working_hours = flt(working_hours, precision)
+	return format_duration(working_hours * 3600)
+
+def update_data(data, filters):
+	for d in data:
+		update_late_entry(d, filters.consider_grace_period)
+		update_early_exit(d, filters.consider_grace_period)
+
+		d.working_hours = format_working_hours(d.working_hours)
+		d.in_time, d.out_time = format_in_out_time(d.in_time, d.out_time, d.attendance_date)
+		d.shift_start, d.shift_end = convert_datetime_to_time_for_same_date(d.shift_start, d.shift_end)
+		d.shift_actual_start, d.shift_actual_end = convert_datetime_to_time_for_same_date(
+			d.shift_actual_start, d.shift_actual_end
+		)
+	return data
 
 
 def format_in_out_time(in_time, out_time, attendance_date):

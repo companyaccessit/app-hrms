@@ -48,13 +48,8 @@ class ShiftType(Document):
 		allow_overtime: DF.Check
 		auto_update_last_sync: DF.Check
 		begin_check_in_before_shift_start_time: DF.Int
-		color: DF.Literal[
-			"Blue", "Cyan", "Fuchsia", "Green", "Lime", "Orange", "Pink", "Red", "Violet", "Yellow"
-		]
-		determine_check_in_and_check_out: DF.Literal[
-			"Alternating entries as IN and OUT during the same shift",
-			"Strictly based on Log Type in Employee Checkin",
-		]
+		color: DF.Literal["Blue", "Cyan", "Fuchsia", "Green", "Lime", "Orange", "Pink", "Red", "Violet", "Yellow"]
+		determine_check_in_and_check_out: DF.Literal["Alternating entries as IN and OUT during the same shift", "Strictly based on Log Type in Employee Checkin"]
 		early_exit_grace_period: DF.Int
 		enable_auto_attendance: DF.Check
 		enable_early_exit_marking: DF.Check
@@ -67,9 +62,7 @@ class ShiftType(Document):
 		overtime_type: DF.Link | None
 		process_attendance_after: DF.Date | None
 		start_time: DF.Time
-		working_hours_calculation_based_on: DF.Literal[
-			"First Check-in and Last Check-out", "Every Valid Check-in and Check-out"
-		]
+		working_hours_calculation_based_on: DF.Literal["First Check-in and Last Check-out", "Every Valid Check-in and Check-out"]
 		working_hours_threshold_for_absent: DF.Float
 		working_hours_threshold_for_half_day: DF.Float
 	# end: auto-generated types
