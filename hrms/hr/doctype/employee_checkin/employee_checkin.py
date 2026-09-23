@@ -7,7 +7,7 @@ from datetime import date, datetime, timedelta
 import frappe
 from frappe import _
 from frappe.model.document import Document
-from frappe.utils import cint, get_datetime, getdate
+from frappe.utils import cint, get_datetime, getdate,add_days 
 
 from hrms.hr.doctype.shift_assignment.shift_assignment import get_actual_start_end_datetime_of_shift
 from hrms.hr.utils import (
@@ -61,27 +61,54 @@ class EmployeeCheckin(Document):
 		self.validate_distance_from_shift_location()
 
 	def validate_checkin_same_day(self):
-		checkin_date = getdate(self.time)
-		existing = frappe.db.exists(
-			"Employee Checkin",
-			{
-				"employee": self.employee,
-				"log_type": self.log_type,
-				"name": ["!=", self.name],
-				"time": [
-					"between",
-					[
-						f"{checkin_date} 00:00:00",
-						f"{checkin_date} 23:59:59"
-					]
-				]
-			}
-		)
+		checkin_time = get_datetime(self.time)
+		day_start = get_datetime(getdate(checkin_time))
+		day_end = get_datetime(add_days(getdate(checkin_time), 1))
 
-		if existing:
-			frappe.throw(
-				f"Employee {self.employee} already has a {self.log_type} record for {checkin_date}."
+		last_log = frappe.get_all(
+			"Employee Checkin",
+			filters=[
+				["employee", "=", self.employee],
+				["name", "!=", self.name],
+				["time", "<", checkin_time],
+			],
+			fields=["name", "log_type", "time"],
+			order_by="time desc",
+			limit=1,
+		)
+		last_type = last_log[0].log_type if last_log else None
+
+		if self.log_type == "IN":
+			same_day_in = frappe.get_all(
+				"Employee Checkin",
+				filters=[
+					["employee", "=", self.employee],
+					["log_type", "=", "IN"],
+					["name", "!=", self.name],
+					["time", ">=", day_start],
+					["time", "<", day_end],
+				],
+				limit=1,
 			)
+			if same_day_in:
+				frappe.throw(
+					_("Employee {0} already has an IN record for {1}.").format(
+						self.employee, getdate(checkin_time)
+					)
+				)
+
+			if last_type == "IN":
+				frappe.throw(
+					_("Employee {0} has an open IN at {1}. Please clock OUT first.").format(
+						self.employee, last_log[0].time
+					)
+				)
+
+		elif self.log_type == "OUT":
+			if last_type != "IN":
+				frappe.throw(
+					_("Employee {0} has no open IN to clock out from.").format(self.employee)
+				)
 
 	def validate_duplicate_log(self):
 		doc = frappe.db.exists(
